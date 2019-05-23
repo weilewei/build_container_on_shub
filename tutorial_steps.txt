@@ -1,0 +1,50 @@
+#Create a github a account if you don't already have one. Go to:
+#https://github.com/join
+#{Remember your username and password!}
+
+#Use a text editor to explore and customize the recipe file ‘Singularity’:
+
+nano Singularity
+
+	#Can you determine the purpose of each section?
+	#Can you determine what this container does?  
+	#Are there any files copied to the container?
+	#Now change the ‘Maintainer’ to your name
+	#To exit and save type [ctrl-x], then “y”, then [enter].
+
+ #Now we are ready to build a container on Singularity Hub using this recipe. Recall that we do this by creating a github repository containing the ‘Singularity’ recipe file.  For the sake of time we’ve created a script to facilitate this step. Type:
+
+./make_git_repo.sh <your-github-username>
+
+#You will be prompted for your github password 2 times while the script is running; enter it each time.  User your browser to confirm your repository was created:
+
+https://github.com/<your-github-username>/build_container_on_shub
+
+#Now navigate to Singularity Hub in your browser:
+
+https://www.singularity-hub.org/
+
+…and do the following:
+1. Go to the "login" link in the upper right corner and login with your github credentials
+2. Choose "GITHUB", not "GITHUB (WITH PRIVATE)"
+3. Go to "My container collections”
+4. Go to "Add a Collection”
+4. Choose "<your-github-username>/build_container_on_shub" and click on "SUBMIT”
+6. This will take you another page while your container builds.  You can click "refresh" to check it's status.  It may take several minutes. 
+7. If your container builds successfully, you will see a green ‘Complete’ button.  If not, let us know and we’ll help: you can quickly fix and re-commit the recipe to github, which will initiate another build on Singularity Hub.
+
+#Now navigate to Singularity Hub in your browser:
+
+singularity pull --name mytranslator.sif shub://<your-github-username>/build_container_on_shub
+
+#Run your container with the ‘inside’ version of the python script:
+
+singularity run mytranslator.sif 
+
+#…and run your container with the ‘outside’ version of the python script:
+
+singularity exec mytranslator.sif python ./text_translate.py
+
+#(hint: you can change the language in ./text_translate.py to confirm that the outside script is running)
+
+
